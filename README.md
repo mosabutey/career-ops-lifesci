@@ -3,7 +3,7 @@
 English-first repository
 
 <p align="center">
-  <a href="https://github.com/mosabutey/career-ops-lifesci"><img src="docs/hero-banner.jpg" alt="Career-Ops LifeSci - Career Operating System" width="800"></a>
+  <a href="https://github.com/mosabutey/career-ops-lifesci"><img src="docs/hero-banner.svg" alt="Career-Ops LifeSci - Career Operating System" width="800"></a>
 </p>
 
 <p align="center">
