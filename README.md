@@ -11,13 +11,13 @@
 </p>
 
 <p align="center">
-  <code>Claude Code</code>
-  <code>Codex</code>
-  <code>OpenCode</code>
-  <code>Node.js</code>
-  <code>Go</code>
-  <code>Playwright</code>
-  <code>MIT</code>
+  <a href="https://www.anthropic.com/product/claude-code"><code>Claude Code</code></a>
+  <a href="https://openai.com/codex"><code>Codex</code></a>
+  <a href="https://opencode.ai/"><code>OpenCode</code></a>
+  <a href="https://nodejs.org/en"><code>Node.js</code></a>
+  <a href="https://go.dev/"><code>Go</code></a>
+  <a href="https://playwright.dev/docs/intro"><code>Playwright</code></a>
+  <a href="LICENSE"><code>MIT</code></a>
 </p>
 
 ---
