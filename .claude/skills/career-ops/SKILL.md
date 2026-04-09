@@ -26,6 +26,7 @@ Determine the mode from `{{mode}}`:
 | `training` | `training` |
 | `project` | `project` |
 | `tracker` | `tracker` |
+| `patterns` | `patterns` |
 | `pipeline` | `pipeline` |
 | `apply` | `apply` |
 | `scan` | `scan` |
@@ -57,6 +58,7 @@ Available commands:
   /career-ops tracker   → Application status overview
   /career-ops apply     → Live application assistant (reads form + generates answers)
   /career-ops scan      → Scan portals and discover new offers
+  /career-ops patterns  → Analyze trends, conversion, and strategy drift from tracker/report data
   /career-ops batch     → Batch processing with parallel workers
 
 Inbox: add URLs to data/pipeline.md → /career-ops pipeline
@@ -77,7 +79,7 @@ Applies to: `auto-pipeline`, `evaluate`, `compare`, `pdf`, `contact`, `apply`, `
 ### Standalone modes (only their mode file):
 Read `modes/{mode}.md`
 
-Applies to: `tracker`, `deep`, `training`, `project`
+Applies to: `tracker`, `patterns`, `deep`, `training`, `project`
 
 ### Modes delegated to subagent:
 For `scan`, `apply` (with Playwright), and `pipeline` (3+ URLs): launch as Agent with the content of `_shared.md` + `modes/{mode}.md` injected into the subagent prompt.

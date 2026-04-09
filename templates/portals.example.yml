@@ -125,6 +125,38 @@ search_queries:
     query: 'site:job-boards.greenhouse.io OR site:jobs.lever.co internship OR externship OR fellowship OR co-op "life sciences" OR biotech OR healthtech'
     enabled: true
 
+  - name: "Field Medical and MSL Roles"
+    query: 'site:job-boards.greenhouse.io OR site:jobs.lever.co "field medical" OR MSL OR "medical science liaison" OR "scientific liaison"'
+    enabled: true
+
+  - name: "Medical Communications and Scientific Content"
+    query: 'site:job-boards.greenhouse.io OR site:jobs.lever.co "medical communications" OR "scientific communications" OR "medical writer" OR "medical content"'
+    enabled: true
+
+  - name: "MedTech and Clinical Product Roles"
+    query: 'site:job-boards.greenhouse.io OR site:jobs.lever.co medtech OR "clinical product" OR "clinical workflow" OR "scientific product manager"'
+    enabled: true
+
+  - name: "CRO and Clinical Strategy Roles"
+    query: 'site:job-boards.greenhouse.io OR site:jobs.lever.co CRO OR CDMO OR "clinical strategy" OR "clinical operations" OR "medical affairs"'
+    enabled: true
+
+  - name: "Biopharma Strategy and Market Access"
+    query: 'site:job-boards.greenhouse.io OR site:jobs.lever.co "market access" OR "commercial strategy" OR "portfolio strategy" OR "launch strategy" biotech OR pharma'
+    enabled: true
+
+  - name: "Diligence and Investing-Adjacent Roles"
+    query: 'site:job-boards.greenhouse.io OR site:jobs.lever.co diligence OR "scientific diligence" OR "investment team" OR "portfolio strategy" "life sciences"'
+    enabled: true
+
+  - name: "Graduate and Postdoctoral Industry Fellowships"
+    query: 'site:job-boards.greenhouse.io OR site:jobs.lever.co fellowship OR postdoctoral OR trainee "medical affairs" OR biotech OR "life sciences consulting"'
+    enabled: true
+
+  - name: "Public Health and Scientific Partnerships"
+    query: 'site:job-boards.greenhouse.io OR site:jobs.lever.co "scientific partnerships" OR "clinical partnerships" OR "public health" OR "medical partnerships"'
+    enabled: true
+
 tracked_companies:
   - name: "Genentech"
     company_class: "biotech_pharma"
@@ -163,6 +195,60 @@ tracked_companies:
     scan_query: 'site:modernatx.com/careers "medical" OR "clinical" OR "scientific"'
     enabled: true
 
+  - name: "Amgen"
+    company_class: "biotech_pharma"
+    role_packs:
+      - "biopharma_medical"
+    careers_url: "https://careers.amgen.com/en"
+    scan_method: "websearch"
+    scan_query: 'site:careers.amgen.com "medical affairs" OR MSL OR "clinical scientist"'
+    enabled: true
+
+  - name: "Eli Lilly"
+    company_class: "biotech_pharma"
+    role_packs:
+      - "biopharma_medical"
+    careers_url: "https://careers.lilly.com/"
+    scan_method: "websearch"
+    scan_query: 'site:careers.lilly.com "medical affairs" OR MSL OR "clinical development"'
+    enabled: true
+
+  - name: "Pfizer"
+    company_class: "biotech_pharma"
+    role_packs:
+      - "biopharma_medical"
+    careers_url: "https://www.pfizer.com/about/careers"
+    scan_method: "websearch"
+    scan_query: 'site:pfizer.com/about/careers "medical affairs" OR MSL OR clinical'
+    enabled: true
+
+  - name: "AbbVie"
+    company_class: "biotech_pharma"
+    role_packs:
+      - "biopharma_medical"
+    careers_url: "https://jobs.abbvie.com/"
+    scan_method: "websearch"
+    scan_query: 'site:jobs.abbvie.com "medical affairs" OR MSL OR "clinical scientist"'
+    enabled: true
+
+  - name: "AstraZeneca"
+    company_class: "biotech_pharma"
+    role_packs:
+      - "biopharma_medical"
+    careers_url: "https://careers.astrazeneca.com/"
+    scan_method: "websearch"
+    scan_query: 'site:careers.astrazeneca.com "medical affairs" OR MSL OR clinical'
+    enabled: true
+
+  - name: "GSK"
+    company_class: "biotech_pharma"
+    role_packs:
+      - "biopharma_medical"
+    careers_url: "https://jobs.gsk.com/"
+    scan_method: "websearch"
+    scan_query: 'site:jobs.gsk.com "medical affairs" OR MSL OR scientific'
+    enabled: true
+
   - name: "IQVIA"
     company_class: "life_sciences_services"
     role_packs:
@@ -173,6 +259,36 @@ tracked_companies:
     scan_query: 'site:jobs.iqvia.com "medical affairs" OR "consulting" OR "scientific"'
     enabled: true
 
+  - name: "Syneos Health"
+    company_class: "life_sciences_services"
+    role_packs:
+      - "biopharma_medical"
+      - "life_sciences_consulting"
+    careers_url: "https://jobs.syneoshealth.com/"
+    scan_method: "websearch"
+    scan_query: 'site:jobs.syneoshealth.com "medical affairs" OR consulting OR scientific'
+    enabled: true
+
+  - name: "ICON"
+    company_class: "life_sciences_services"
+    role_packs:
+      - "biopharma_medical"
+      - "healthtech_scientific"
+    careers_url: "https://careers.iconplc.com/"
+    scan_method: "websearch"
+    scan_query: 'site:careers.iconplc.com "medical affairs" OR clinical OR scientific'
+    enabled: true
+
+  - name: "Parexel"
+    company_class: "life_sciences_services"
+    role_packs:
+      - "biopharma_medical"
+      - "life_sciences_consulting"
+    careers_url: "https://jobs.parexel.com/"
+    scan_method: "websearch"
+    scan_query: 'site:jobs.parexel.com clinical OR scientific OR consulting'
+    enabled: true
+
   - name: "BCG"
     company_class: "consulting"
     role_packs:
@@ -180,6 +296,53 @@ tracked_companies:
     careers_url: "https://careers.bcg.com/global/en"
     scan_method: "websearch"
     scan_query: 'site:careers.bcg.com "healthcare" OR "life sciences" OR consultant'
+    enabled: true
+
+  - name: "McKinsey"
+    company_class: "consulting"
+    role_packs:
+      - "life_sciences_consulting"
+      - "adjacent_generalist"
+    careers_url: "https://www.mckinsey.com/careers/search-jobs"
+    scan_method: "websearch"
+    scan_query: 'site:mckinsey.com/careers "life sciences" OR healthcare OR consultant'
+    enabled: true
+
+  - name: "LEK Consulting"
+    company_class: "consulting"
+    role_packs:
+      - "life_sciences_consulting"
+    careers_url: "https://www.lek.com/join-lek"
+    scan_method: "websearch"
+    scan_query: 'site:lek.com "life sciences" OR healthcare consultant OR strategy'
+    enabled: true
+
+  - name: "ZS"
+    company_class: "consulting"
+    role_packs:
+      - "life_sciences_consulting"
+      - "adjacent_generalist"
+    careers_url: "https://jobs.zs.com/"
+    scan_method: "websearch"
+    scan_query: 'site:jobs.zs.com healthcare OR "life sciences" OR strategy'
+    enabled: true
+
+  - name: "Putnam"
+    company_class: "consulting"
+    role_packs:
+      - "life_sciences_consulting"
+    careers_url: "https://www.putassoc.com/careers/"
+    scan_method: "websearch"
+    scan_query: 'site:putassoc.com/careers "life sciences" OR healthcare consultant'
+    enabled: true
+
+  - name: "DeciBio"
+    company_class: "consulting"
+    role_packs:
+      - "life_sciences_consulting"
+    careers_url: "https://www.decibio.com/careers"
+    scan_method: "websearch"
+    scan_query: 'site:decibio.com/careers consultant OR "life sciences" OR scientific'
     enabled: true
 
   - name: "PwC"
@@ -211,6 +374,105 @@ tracked_companies:
     scan_query: 'site:tempus.com/careers clinical OR scientific OR medical OR product'
     enabled: true
 
+  - name: "Abridge"
+    company_class: "healthtech"
+    role_packs:
+      - "healthtech_scientific"
+      - "adjacent_generalist"
+    careers_url: "https://www.abridge.com/careers"
+    scan_method: "websearch"
+    scan_query: 'site:abridge.com/careers clinical OR medical OR scientific OR product'
+    enabled: true
+
+  - name: "Hinge Health"
+    company_class: "healthtech"
+    role_packs:
+      - "healthtech_scientific"
+      - "adjacent_generalist"
+    careers_url: "https://jobs.hingehealth.com/"
+    scan_method: "websearch"
+    scan_query: 'site:jobs.hingehealth.com clinical OR medical OR strategy OR partnerships'
+    enabled: true
+
+  - name: "Commure"
+    company_class: "healthtech"
+    role_packs:
+      - "healthtech_scientific"
+    careers_url: "https://www.commure.com/careers"
+    scan_method: "websearch"
+    scan_query: 'site:commure.com/careers clinical OR scientific OR product'
+    enabled: true
+
+  - name: "Maven Clinic"
+    company_class: "healthtech"
+    role_packs:
+      - "healthtech_scientific"
+      - "adjacent_generalist"
+    careers_url: "https://www.mavenclinic.com/careers"
+    scan_method: "websearch"
+    scan_query: 'site:mavenclinic.com/careers clinical OR medical OR strategy'
+    enabled: true
+
+  - name: "Omada Health"
+    company_class: "healthtech"
+    role_packs:
+      - "healthtech_scientific"
+      - "adjacent_generalist"
+    careers_url: "https://www.omadahealth.com/careers"
+    scan_method: "websearch"
+    scan_query: 'site:omadahealth.com/careers clinical OR medical OR product OR strategy'
+    enabled: true
+
+  - name: "Medtronic"
+    company_class: "medtech"
+    role_packs:
+      - "healthtech_scientific"
+      - "adjacent_generalist"
+    careers_url: "https://jobs.medtronic.com/"
+    scan_method: "websearch"
+    scan_query: 'site:jobs.medtronic.com clinical OR medical OR scientific OR strategy'
+    enabled: true
+
+  - name: "Intuitive"
+    company_class: "medtech"
+    role_packs:
+      - "healthtech_scientific"
+      - "adjacent_generalist"
+    careers_url: "https://careers.intuitive.com/"
+    scan_method: "websearch"
+    scan_query: 'site:careers.intuitive.com clinical OR medical OR scientific'
+    enabled: true
+
+  - name: "Stryker"
+    company_class: "medtech"
+    role_packs:
+      - "healthtech_scientific"
+      - "adjacent_generalist"
+    careers_url: "https://careers.stryker.com/"
+    scan_method: "websearch"
+    scan_query: 'site:careers.stryker.com clinical OR medical OR scientific OR strategy'
+    enabled: true
+
+  - name: "GE HealthCare"
+    company_class: "medtech"
+    role_packs:
+      - "healthtech_scientific"
+      - "adjacent_generalist"
+    careers_url: "https://careers.gehealthcare.com/"
+    scan_method: "websearch"
+    scan_query: 'site:careers.gehealthcare.com clinical OR medical OR scientific OR product'
+    enabled: true
+
+  - name: "Siemens Healthineers"
+    company_class: "medtech"
+    role_packs:
+      - "healthtech_scientific"
+      - "adjacent_generalist"
+    careers_url: "https://www.siemens-healthineers.com/careers"
+    scan_method: "websearch"
+    scan_query: 'site:siemens-healthineers.com/careers clinical OR medical OR scientific'
+    enabled: true
+
   - name: "Flatiron Health"
     company_class: "healthtech"
     role_packs:
@@ -239,6 +501,36 @@ tracked_companies:
     scan_query: 'site:flagshippioneering.com/careers strategy OR scientific OR diligence'
     enabled: true
 
+  - name: "Third Rock Ventures"
+    company_class: "investing_diligence"
+    role_packs:
+      - "life_sciences_consulting"
+      - "adjacent_generalist"
+    careers_url: "https://www.thirdrockventures.com/careers/"
+    scan_method: "websearch"
+    scan_query: 'site:thirdrockventures.com/careers strategy OR scientific OR operations'
+    enabled: true
+
+  - name: "RA Capital"
+    company_class: "investing_diligence"
+    role_packs:
+      - "life_sciences_consulting"
+      - "adjacent_generalist"
+    careers_url: "https://www.racap.com/careers/"
+    scan_method: "websearch"
+    scan_query: 'site:racap.com/careers scientific OR investment OR strategy'
+    enabled: true
+
+  - name: "MPM BioImpact"
+    company_class: "investing_diligence"
+    role_packs:
+      - "life_sciences_consulting"
+      - "adjacent_generalist"
+    careers_url: "https://www.mpmbio.com/careers/"
+    scan_method: "websearch"
+    scan_query: 'site:mpmbio.com/careers scientific OR strategy OR operations'
+    enabled: true
+
   - name: "Medical and Graduate Student Pathways"
     company_class: "early_career_programs"
     role_packs:
@@ -248,4 +540,33 @@ tracked_companies:
     careers_url: "https://jobs.iqvia.com/"
     scan_method: "websearch"
     scan_query: '"internship" OR "externship" OR "fellowship" OR "co-op" biotech OR "life sciences" OR healthtech'
+    enabled: true
+
+  - name: "BCG Student Programs"
+    company_class: "early_career_programs"
+    role_packs:
+      - "life_sciences_consulting"
+    careers_url: "https://careers.bcg.com/global/en/students"
+    scan_method: "websearch"
+    scan_query: 'site:careers.bcg.com/global/en/students healthcare OR "life sciences" OR internship'
+    enabled: true
+
+  - name: "McKinsey Early Careers"
+    company_class: "early_career_programs"
+    role_packs:
+      - "life_sciences_consulting"
+      - "adjacent_generalist"
+    careers_url: "https://www.mckinsey.com/careers/students"
+    scan_method: "websearch"
+    scan_query: 'site:mckinsey.com/careers/students healthcare OR internship OR fellow'
+    enabled: true
+
+  - name: "Johnson & Johnson Student Programs"
+    company_class: "early_career_programs"
+    role_packs:
+      - "biopharma_medical"
+      - "healthtech_scientific"
+    careers_url: "https://jobs.jnj.com/en/students/"
+    scan_method: "websearch"
+    scan_query: 'site:jobs.jnj.com/en/students internship OR co-op OR leadership development'
     enabled: true

@@ -21,6 +21,7 @@ Good first contributions:
 - add or refine scanner companies and search queries
 - add anonymized fictional examples in `examples/`
 - improve localization and accessibility
+- improve local-agent operating guidance or browser-apply safety docs
 - clarify role-pack guidance or stage-path wording
 
 Bigger contributions:
@@ -54,6 +55,7 @@ Use fictional or anonymized data in `examples/`.
 ```bash
 # Node scripts
 npm run doctor
+node analyze-patterns.mjs
 node verify-pipeline.mjs
 node normalize-statuses.mjs
 node dedup-tracker.mjs
@@ -69,6 +71,7 @@ go build -o career-dashboard .
 - They improve quality for real users
 - They preserve canonical tracker and report contracts
 - They make the system clearer for scientists, clinicians, students, and career changers
+- They respect the local-agent review boundary and do not encourage unsafe automation
 - They do not assume all users want the same career path
 
 ## Need help?

@@ -38,6 +38,7 @@ These files contain system logic, scripts, templates, and instructions that impr
 | `modes/deep.md` | Research prompt instructions |
 | `modes/compare.md` | Comparison instructions |
 | `modes/pipeline.md` | Pipeline processing instructions |
+| `modes/patterns.md` | Outcome and search pattern analysis instructions |
 | `modes/project.md` | Project evaluation instructions |
 | `modes/tracker.md` | Tracker instructions |
 | `modes/training.md` | Training evaluation instructions |

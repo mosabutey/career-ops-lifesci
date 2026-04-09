@@ -2,10 +2,13 @@
 
 Interactive mode for when the candidate is filling out a job application form in Chrome. Read what is on screen, load the prior context for the role, and generate tailored answers for every visible question.
 
+This mode can be used for browser-assisted application work on the candidate's local machine. The system may open job pages, inspect forms, upload the correct resume or cover letter file, and fill fields for review, but the candidate remains the final reviewer and submitter.
+
 ## Requirements
 
 - **Best with visible Playwright**: in visible mode, the candidate can see the browser and the agent can interact with the page.
 - **Without Playwright**: the candidate shares a screenshot or pastes the questions manually.
+- **File uploads**: if the candidate wants the agent to upload a resume or cover letter, the file path must be known and the intended document should be confirmed first.
 
 ## Workflow
 
@@ -23,6 +26,12 @@ Interactive mode for when the candidate is filling out a job application form in
 ## Step 1 -- Detect the role
 
 **With Playwright:** take a snapshot of the active page. Read the title, URL, and visible content.
+
+If the candidate asks for it and browser control is available, the agent may:
+- navigate to the company job page
+- open the application flow
+- inspect visible fields and upload controls
+- prepare the browser state for the candidate's review
 
 **Without Playwright:** ask the candidate to:
 - Share a screenshot of the form
@@ -54,6 +63,7 @@ Identify ALL visible questions:
 - Yes/No questions (relocation, visa, etc.)
 - Salary fields (range, expectation)
 - Upload fields (resume, cover letter PDF)
+- Attachments and document selectors (resume variant, transcript, writing sample, supporting files)
 
 Classify each question:
 - **Already answered in Section H** -> adapt the existing answer
@@ -77,6 +87,14 @@ For work authorization and sponsorship questions:
 - if the form text conflicts with the candidate's actual situation, tell the candidate before suggesting a response
 - never tell the candidate to answer `no` to future sponsorship if the profile says future sponsorship will be required
 - if the company explicitly states no sponsorship and the candidate does require it, flag the mismatch clearly before continuing
+
+For uploads and form-filling:
+- choose the document variant that best matches the evaluated role
+- confirm the intended file before upload when multiple variants exist
+- upload only files the candidate has approved or that were generated for this role
+- fill visible fields carefully and re-check values
+- do not invent required information the candidate has not approved
+- stop before the final submit or send action so the candidate can review everything
 
 **Output format:**
 
@@ -109,6 +127,12 @@ If the candidate confirms that the application was submitted:
 1. Update the status in `applications.md` from `Evaluated` to `Applied`
 2. Update Section H in the report with the final answers
 3. Suggest the next step: `/career-ops contact` for LinkedIn outreach
+
+## Safety boundary
+
+- The agent may help open sites, upload files, and fill sections.
+- The candidate must review the application before submission.
+- Do not click the final submit action unless the candidate explicitly asks for a final handoff and still has a chance to review first.
 
 ## Scroll handling
 

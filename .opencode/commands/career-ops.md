@@ -8,6 +8,21 @@ If arguments contain a job description or URL (keywords like "responsibilities",
 
 Otherwise, the discovery menu will be shown.
 
+Supported modes include:
+- `evaluate`
+- `compare`
+- `contact`
+- `pdf`
+- `apply`
+- `scan`
+- `patterns`
+- `pipeline`
+- `batch`
+- `tracker`
+- `deep`
+- `training`
+- `project`
+
 Load the career-ops skill:
 ```
 skill({ name: "career-ops" })

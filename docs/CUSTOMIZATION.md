@@ -58,6 +58,14 @@ Copy from `templates/portals.example.yml` and customize:
 
 If you are targeting internships or fellowships, keep stage-specific keywords enabled.
 
+The default scanner template now includes sector packs across:
+- biopharma and medical affairs
+- life sciences consulting
+- health-tech and medtech
+- CRO/CDMO and life sciences services
+- investing and diligence-adjacent firms
+- student and trainee programs
+
 You can also tune sponsorship detection by editing:
 - `sponsorship_signals.explicit_open`
 - `sponsorship_signals.explicit_closed`
@@ -91,3 +99,18 @@ Examples:
 - strengthening global writing or ATS rules
 
 Do not put private personal data here.
+
+## 6. Pattern analysis (`modes/patterns.md`)
+
+Use `/career-ops patterns` or:
+
+```bash
+node analyze-patterns.mjs
+```
+
+This helps you learn from:
+- score distribution
+- application conversion
+- track drift
+- sponsorship friction
+- repeated low-return behavior

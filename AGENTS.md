@@ -43,7 +43,7 @@ To rollback: `node update-system.mjs rollback`
 
 ## What is Career-Ops LifeSci
 
-Local-first career intelligence built on Codex: opportunity evaluation, role-pack-aware CV generation, portal scanning, batch processing, and pipeline tracking.
+Local-first career intelligence built on Codex: opportunity evaluation, role-pack-aware CV generation, portal scanning, browser-assisted application support, batch processing, pattern analysis, and pipeline tracking.
 
 ### Main Files
 
@@ -78,6 +78,7 @@ When using [OpenCode](https://opencode.ai), the following slash commands are ava
 | `/career-ops-tracker` | `/career-ops tracker` | Application status overview |
 | `/career-ops-apply` | `/career-ops apply` | Live application assistant |
 | `/career-ops-scan` | `/career-ops scan` | Scan portals for new offers |
+| `/career-ops-patterns` | `/career-ops patterns` | Analyze tracker and report patterns |
 | `/career-ops-batch` | `/career-ops batch` | Batch processing with parallel workers |
 
 **Note:** OpenCode commands invoke the same `.Codex/skills/career-ops/SKILL.md` skill used by Codex. The `modes/*` files are shared between both platforms.
@@ -121,7 +122,7 @@ Fill in `config/profile.yml` with their answers. Map their targets into the clos
 
 #### Step 3: Portals (recommended)
 If `portals.yml` is missing:
-> "I'll set up the job scanner with 45+ pre-configured companies. Want me to customize the search keywords for your target roles?"
+> "I'll set up the job scanner with dozens of pre-configured companies and sector-specific search packs. Want me to customize the search keywords for your target roles?"
 
 Copy `templates/portals.example.yml` → `portals.yml`. If they gave target roles in Step 2, update `title_filter.positive` to match.
 
@@ -215,6 +216,7 @@ Default modes are in `modes/` (English). Additional language-specific modes are 
 | Asks about application status | `tracker` |
 | Fills out application form | `apply` |
 | Searches for new offers | `scan` |
+| Wants to learn from application outcomes over time | `patterns` |
 | Processes pending URLs | `pipeline` |
 | Batch processes offers | `batch` |
 

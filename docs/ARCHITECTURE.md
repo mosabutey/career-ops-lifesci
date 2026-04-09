@@ -14,12 +14,13 @@ User materials
         v
 Shared engine
   |-- modes/_shared.md
-  |-- evaluate / compare / scan / contact / pdf / batch
+  |-- evaluate / compare / scan / contact / pdf / apply / patterns / batch
         |
         v
 Opportunity logic
   |-- role pack detection
   |-- career stage detection
+  |-- sponsorship / authorization signals
   |-- scoring + positioning
         |
         v
@@ -28,6 +29,7 @@ Outputs
   |-- output/
   |-- batch/tracker-additions/
   |-- data/applications.md
+  |-- patterns analysis
 ```
 
 ## Core idea
@@ -73,6 +75,24 @@ This lets the same engine serve:
 5. Filter and deduplicate
 6. Add strong candidates to `pipeline.md`
 
+## Apply flow
+
+1. Open the live job form when browser automation is available
+2. Match it to an existing report or trigger quick evaluation
+3. Read visible questions and upload fields
+4. Generate or adapt answers from report context
+5. Upload the correct approved document variant
+6. Fill visible fields for review
+7. Stop before final submission
+
+## Patterns flow
+
+1. Read `data/applications.md`
+2. Read reports from `reports/`
+3. Aggregate score, status, track, stage, and authorization signals
+4. Surface repeated strengths, weak conversion points, and search drift
+5. Recommend practical adjustments to the search strategy
+
 ## Document generation flow
 
 The PDF system uses one fact source of truth but multiple output families:
@@ -90,6 +110,10 @@ The canonical tracker contract remains unchanged:
 - new rows flow through `batch/tracker-additions/`
 - `merge-tracker.mjs` merges them into `data/applications.md`
 - `verify-pipeline.mjs`, `normalize-statuses.mjs`, and `dedup-tracker.mjs` maintain consistency
+
+## Operating boundary
+
+The local agent can automate parts of discovery, evaluation, document generation, and browser-assisted application work, but the user remains the final reviewer and submitter of all real applications.
 
 ## Design principle
 

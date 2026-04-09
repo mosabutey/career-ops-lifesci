@@ -110,3 +110,4 @@ Wenn du eine Übersetzung verbessern oder einen weiteren Modus eindeutschen will
 3. Übersetze sinngemäß und idiomatisch — keine wörtlichen Wort-für-Wort-Übersetzungen
 4. Behalte die strukturellen Elemente (Block A-F, Tabellen, Code-Blöcke, Tool-Anweisungen) exakt bei
 5. Teste mit einer echten deutschen Stellenanzeige (z. B. von StepStone oder XING), bevor du den PR aufmachst
+> Hinweis: Die englischen Standard-Modi in `modes/` sind derzeit die kanonische und am aktivsten gepflegte Oberfläche. Neuere Funktionen wie Sponsorship-Logik, `patterns`, und die erweiterten lokalen Agent-Fähigkeiten erscheinen zuerst im englischen Kern.

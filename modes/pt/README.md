@@ -109,3 +109,4 @@ Se quiser melhorar uma traducao ou traduzir um modo adicional:
 3. Traduza de forma natural e idiomatica — nada de traducao literal palavra por palavra
 4. Mantenha os elementos estruturais (Bloco A-F, tabelas, blocos de codigo, instrucoes de tools) exatamente iguais
 5. Teste com uma vaga real brasileira (ex: do Gupy ou LinkedIn BR) antes de abrir o PR
+> Observacao: os modos em ingles em `modes/` continuam sendo a superficie canonica mais ativamente mantida. Recursos mais recentes como logica de sponsorship, `patterns` e capacidades ampliadas de agentes locais chegam primeiro ao nucleo em ingles.

@@ -95,6 +95,7 @@ The repo supports role packs and career-stage paths from the start, so it can se
 | **Tracker** | Keeps a canonical application pipeline with integrity checks |
 | **Interview Prep** | Builds reusable stories, objections, and case-study framing |
 | **Contact** | Drafts role-aware outreach for networking and recruiter conversations |
+| **Patterns** | Analyzes tracker and report data to surface conversion, focus, and strategy patterns |
 
 ## Quick Start
 
@@ -104,6 +105,7 @@ git clone https://github.com/mosabutey/career-ops-lifesci.git
 cd career-ops-lifesci
 npm install
 npx playwright install chromium
+npm run doctor
 
 # 2. Configure your profile
 cp config/profile.example.yml config/profile.yml
@@ -115,6 +117,8 @@ cp templates/portals.example.yml portals.yml
 
 # 4. Open your AI coding tool in this directory
 claude
+# or: codex
+# or: opencode
 
 # 5. Ask it to personalize the system
 # "Set this up for biotech medical affairs and life sciences consulting roles"
@@ -125,6 +129,19 @@ claude
 See [docs/SETUP.md](docs/SETUP.md) for the full setup guide.
 
 ## Typical Workflows
+
+### Command Center
+
+The core command surface works across Claude Code, Codex, and OpenCode:
+- `/career-ops {JD or URL}` -> full auto-pipeline
+- `/career-ops evaluate` -> evaluation only
+- `/career-ops compare` -> compare multiple roles
+- `/career-ops scan` -> scan portals and company pages
+- `/career-ops apply` -> browser-assisted application support
+- `/career-ops pdf` -> generate the best-fit document
+- `/career-ops patterns` -> learn from tracker and report data
+- `/career-ops pipeline` -> process saved URLs
+- `/career-ops batch` -> run parallel evaluation flows
 
 ### Opportunity evaluation
 
@@ -164,6 +181,31 @@ The default policy is practical:
 - explicit sponsorship support is a positive signal
 - silence is not an automatic rejection
 - citizenship or clearance requirements should be surfaced clearly
+
+### Browser-assisted applications
+
+When browser automation is available, the system can:
+- open job sites and live application pages
+- inspect visible form questions
+- generate tailored responses from prior reports
+- upload the correct resume or cover letter when the file path is known
+- fill sections of the form for human review
+
+The human boundary stays in place:
+- the candidate reviews the materials
+- the candidate owns the final decision
+- the system should stop before final submission unless the user explicitly asks for a final handoff and still reviews first
+
+## What Agents Can Do Locally On Your PC
+
+When this repo is open in Codex, Claude Code, or another compatible CLI, the agent can:
+- read and edit repo files locally
+- run validation and maintenance scripts
+- open job sites, evaluate postings, and save reports
+- generate ATS-safe resumes and cover letters
+- assist with browser-based application forms, uploads, and field-filling
+- maintain the tracker and pipeline without breaking the data contract
+- adapt the repo itself for new sectors, role packs, and workflows
 
 ## How It Works
 
@@ -227,6 +269,8 @@ career-ops-lifesci/
 - [docs/SETUP.md](docs/SETUP.md)
 - [docs/CUSTOMIZATION.md](docs/CUSTOMIZATION.md)
 - [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)
+- [docs/LOCAL_AGENT_GUIDE.md](docs/LOCAL_AGENT_GUIDE.md)
+- [docs/BROWSER_APPLY_CHECKLIST.md](docs/BROWSER_APPLY_CHECKLIST.md)
 - [CONTRIBUTING.md](CONTRIBUTING.md)
 - [LEGAL_DISCLAIMER.md](LEGAL_DISCLAIMER.md)
 

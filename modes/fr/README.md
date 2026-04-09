@@ -104,3 +104,4 @@ Pour ameliorer une traduction ou ajouter un mode :
 3. Traduis de maniere idiomatique -- pas de traduction mot a mot
 4. Conserve les elements structurels (Blocs A-F, tableaux, blocs de code, instructions outils) a l'identique
 5. Teste avec une vraie offre francophone (Welcome to the Jungle, APEC, Indeed FR) avant de soumettre la PR
+> Remarque : les modes anglais dans `modes/` restent pour l'instant la surface canonique la plus activement maintenue. Les fonctions plus recentes comme la logique de sponsorship, `patterns` et les capacites etendues des agents locaux arrivent d'abord dans le coeur anglais.

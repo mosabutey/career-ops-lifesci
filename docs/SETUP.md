@@ -16,6 +16,7 @@ git clone https://github.com/mosabutey/career-ops-lifesci.git
 cd career-ops-lifesci
 npm install
 npx playwright install chromium
+npm run doctor
 ```
 
 ### 2. Configure your profile
@@ -44,6 +45,8 @@ Optional but strongly recommended:
 
 ```bash
 claude
+# or: codex
+# or: opencode
 ```
 
 Then ask the tool to personalize the system. Examples:
@@ -57,13 +60,31 @@ You can:
 - paste a JD or URL to evaluate it
 - run `/career-ops scan`
 - run `/career-ops pdf`
+- run `/career-ops patterns`
 - run `/career-ops batch`
+
+## Local PC capabilities
+
+When the repo is open in a compatible local agent environment, the agent can:
+- run repo scripts and validations
+- open job sites and inspect live postings
+- generate tailored documents locally
+- assist with browser-based application forms
+- upload resume or cover letter files when paths are known
+- fill visible fields and stop before final submission
+
+The user remains the final reviewer and submitter of all real applications.
+
+For boundaries and operating expectations, see [docs/LOCAL_AGENT_GUIDE.md](LOCAL_AGENT_GUIDE.md).
+For real-site validation of browser assistance, see [docs/BROWSER_APPLY_CHECKLIST.md](BROWSER_APPLY_CHECKLIST.md).
 
 ## Validate setup
 
 ```bash
+npm run doctor
 node cv-sync-check.mjs
 node verify-pipeline.mjs
+node analyze-patterns.mjs
 ```
 
 ## Optional dashboard

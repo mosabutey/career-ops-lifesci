@@ -38,6 +38,7 @@ Career-Ops LifeSci is not designed for:
 - deceptive credential inflation
 - violating platform Terms of Service
 - harassment or manipulative outreach
+- bypassing login, captcha, or anti-bot safeguards
 
 ## 5. Third-party platforms
 
@@ -47,6 +48,21 @@ The project does not endorse:
 - scraping sites that prohibit automated access
 - bypassing platform safeguards
 - overwhelming employers with automated low-fit submissions
+
+## 5a. Local-agent and browser automation boundary
+
+When users run this repo through a local agent, the agent may help:
+- open job sites
+- read postings and application forms
+- upload approved files
+- fill sections of an application for review
+
+That does not remove the user's responsibility.
+
+- The user must review all generated materials.
+- The user must review work authorization and sponsorship answers.
+- The final submit decision remains with the user.
+- Users remain responsible for complying with site rules and local law.
 
 ## 6. Students, trainees, and career changers
 
