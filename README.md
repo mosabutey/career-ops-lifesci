@@ -11,13 +11,17 @@
 </p>
 
 <p align="center">
-  <a href="https://www.anthropic.com/product/claude-code"><code>Claude Code</code></a>
-  <a href="https://openai.com/codex"><code>Codex</code></a>
-  <a href="https://opencode.ai/"><code>OpenCode</code></a>
-  <a href="https://nodejs.org/en"><code>Node.js</code></a>
-  <a href="https://go.dev/"><code>Go</code></a>
-  <a href="https://playwright.dev/docs/intro"><code>Playwright</code></a>
-  <a href="LICENSE"><code>MIT</code></a>
+  <a href="https://www.anthropic.com/product/claude-code"><img src="https://img.shields.io/badge/Claude_Code-000000?style=flat&logo=anthropic&logoColor=white" alt="Claude Code"></a>
+  <a href="https://opencode.ai/"><img src="https://img.shields.io/badge/OpenCode-111827?style=flat&logo=terminal&logoColor=white" alt="OpenCode"></a>
+  <a href="https://openai.com/codex"><img src="https://img.shields.io/badge/Codex-111111?style=flat&logo=openai&logoColor=white" alt="Codex"></a>
+  <a href="https://nodejs.org/en"><img src="https://img.shields.io/badge/Node.js-339933?style=flat&logo=node.js&logoColor=white" alt="Node.js"></a>
+  <a href="https://go.dev/"><img src="https://img.shields.io/badge/Go-00ADD8?style=flat&logo=go&logoColor=white" alt="Go"></a>
+  <a href="https://playwright.dev/docs/intro"><img src="https://img.shields.io/badge/Playwright-2EAD33?style=flat&logo=playwright&logoColor=white" alt="Playwright"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-2563EB?style=flat" alt="MIT"></a>
+  <br>
+  <img src="https://img.shields.io/badge/EN-1D4ED8?style=flat" alt="EN">
+  <img src="https://img.shields.io/badge/DE-6B7280?style=flat" alt="DE">
+  <img src="https://img.shields.io/badge/FR-2563EB?style=flat" alt="FR">
 </p>
 
 ---
