@@ -115,10 +115,13 @@ If `config/profile.yml` is missing, copy from `config/profile.example.yml` and t
 > - What roles or tracks are you targeting? (for example: 'Medical Affairs / MSL', 'Life Sciences Consulting', 'Health-Tech Strategy', 'Internships / Co-ops')
 > - Your salary target range
 > - Any work authorization or sponsorship constraints I should encode?
+> - The portal-ready basics I should store locally for browser-assisted apply work: legal name, phone, mailing address, preferred name if relevant, and prefix/suffix if you use them
+> - Repeated portal answers I should store locally so agents do not have to stop later: travel / relocation preferences, age-of-majority answers, confidentiality or non-compete answers, and prior-employment history when relevant
+> - Any voluntary disclosure defaults you want available locally for agent-assisted filling (for example veteran status, disability status, gender, race/ethnicity, Hispanic/Latino), plus whether agents may pre-check required consent / attestation boxes before your review
 >
 > I'll set everything up for you."
 
-Fill in `config/profile.yml` with their answers. Map their targets into the closest role packs and career stage. Only update `modes/_shared.md` if you are improving the shared system for everyone.
+Fill in `config/profile.yml` with their answers, including the local-only `application_defaults` section when the user provides portal-ready data. Map their targets into the closest role packs and career stage. Only update `modes/_shared.md` if you are improving the shared system for everyone.
 
 #### Step 3: Portals (recommended)
 If `portals.yml` is missing:

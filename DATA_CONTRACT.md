@@ -6,6 +6,8 @@ This document defines which files belong to the **system** (auto-updatable) and 
 
 These files contain your personal data, customizations, and work product. Updates will NEVER modify them.
 
+They should also remain local-only in normal use. Do not commit them to the public repo unless you intentionally want to publish your own data.
+
 | File | Purpose |
 |------|---------|
 | `cv.md` | Your CV in markdown |
@@ -20,6 +22,12 @@ These files contain your personal data, customizations, and work product. Update
 | `reports/*` | Your evaluation reports |
 | `output/*` | Your generated PDFs |
 | `jds/*` | Your saved job descriptions |
+
+Operational secrets and browser/session artifacts are also local-only even if they are not part of the normal content model. Examples:
+
+- `.env` and `.env.*`
+- browser auth/session exports such as `playwright/.auth/*` or `storage-state*.json`
+- local network captures such as `*.har`
 
 ## System Layer (safe to auto-update)
 

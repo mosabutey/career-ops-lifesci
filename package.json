@@ -1,6 +1,6 @@
 {
   "name": "career-ops-lifesci",
-  "version": "1.0.0",
+  "version": "1.2.0",
   "description": "Career-Ops LifeSci - career operating system for opportunity evaluation, tailored documents, and pipeline tracking",
   "scripts": {
     "doctor": "node doctor.mjs",
@@ -10,6 +10,12 @@
     "merge": "node merge-tracker.mjs",
     "patterns": "node analyze-patterns.mjs",
     "pdf": "node generate-pdf.mjs",
+    "probe:apply": "node probe-apply-flow.mjs",
+    "probe:workday-auth": "node probe-workday-auth.mjs",
+    "probe:workday-picker": "node probe-workday-picker-options.mjs",
+    "probe:workday-myinfo": "node probe-workday-myinfo.mjs",
+    "probe:workday-signin": "node probe-workday-signin.mjs",
+    "probe:workday-verify": "node probe-workday-verify.mjs",
     "sync-check": "node cv-sync-check.mjs",
     "update:check": "node update-system.mjs check",
     "update": "node update-system.mjs apply",

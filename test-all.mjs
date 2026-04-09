@@ -4,7 +4,7 @@
  * Comprehensive test suite for career-ops.
  *
  * Run before merging any PR or pushing changes.
- * Tests: syntax, scripts, dashboard, data contract, personal data, paths.
+ * Tests: syntax, scripts, PDF generation, dashboard, data contract, personal data, paths.
  *
  * Usage:
  *   node test-all.mjs
@@ -12,9 +12,18 @@
  */
 
 import { spawnSync } from 'child_process';
-import { existsSync, readFileSync, readdirSync, unlinkSync } from 'fs';
+import {
+  existsSync,
+  mkdirSync,
+  readFileSync,
+  readdirSync,
+  statSync,
+  unlinkSync,
+  writeFileSync,
+} from 'fs';
 import { dirname, extname, join, relative } from 'path';
-import { fileURLToPath } from 'url';
+import { fileURLToPath, pathToFileURL } from 'url';
+import vm from 'vm';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = __dirname;
@@ -24,9 +33,20 @@ let passed = 0;
 let failed = 0;
 let warnings = 0;
 
-function pass(msg) { console.log(`  [OK] ${msg}`); passed++; }
-function fail(msg) { console.log(`  [FAIL] ${msg}`); failed++; }
-function warn(msg) { console.log(`  [WARN] ${msg}`); warnings++; }
+function pass(msg) {
+  console.log(`  [OK] ${msg}`);
+  passed++;
+}
+
+function fail(msg) {
+  console.log(`  [FAIL] ${msg}`);
+  failed++;
+}
+
+function warn(msg) {
+  console.log(`  [WARN] ${msg}`);
+  warnings++;
+}
 
 function runProcess(command, args, opts = {}) {
   const result = spawnSync(command, args, {
@@ -68,7 +88,61 @@ function walkFiles(dir, results = []) {
 }
 
 function allowedByPath(relPath, allowedList) {
-  return allowedList.some(allowed => relPath === allowed || relPath.startsWith(`${allowed}/`));
+  return allowedList.some((allowed) => relPath === allowed || relPath.startsWith(`${allowed}/`));
+}
+
+function checkSyntaxInProcess(path) {
+  if (typeof vm.SourceTextModule !== 'function') {
+    return { supported: false };
+  }
+
+  try {
+    const source = readFile(path);
+    const identifier = pathToFileURL(join(ROOT, path)).href;
+    new vm.SourceTextModule(source, { identifier });
+    return { supported: true, ok: true };
+  } catch (error) {
+    return { supported: true, ok: false, error };
+  }
+}
+
+function buildPdfSmokeFixture() {
+  const template = readFile('templates/cv-template.html');
+  const replacements = {
+    '{{LANG}}': 'en',
+    '{{NAME}}': 'Alex Chen',
+    '{{PAGE_WIDTH}}': '8.5in',
+    '{{EMAIL}}': 'alex@example.com',
+    '{{LINKEDIN_URL}}': 'https://linkedin.com/in/alexchen',
+    '{{LINKEDIN_DISPLAY}}': 'linkedin.com/in/alexchen',
+    '{{PORTFOLIO_URL}}': 'https://alexchen.dev',
+    '{{PORTFOLIO_DISPLAY}}': 'alexchen.dev',
+    '{{LOCATION}}': 'Austin, TX',
+    '{{SECTION_SUMMARY}}': 'Professional Summary',
+    '{{SUMMARY_TEXT}}': 'Built and sold a SaaS — now shipping AI in production. Led evidence-to-decision work across product, engineering, and operations…',
+    '{{SECTION_COMPETENCIES}}': 'Core Competencies',
+    '{{COMPETENCIES}}': '<span class="competency-tag">Scientific Strategy</span><span class="competency-tag">Cross-Functional Leadership</span><span class="competency-tag">Evidence Synthesis</span>',
+    '{{SECTION_EXPERIENCE}}': 'Work Experience',
+    '{{EXPERIENCE}}': '<div class="job"><div class="job-header"><div class="job-company">TechFin Corp</div><div class="job-period">2020–2024</div></div><div class="job-role">Senior ML Engineer</div><ul><li>Led platform modernization for 4 teams and improved deployment speed.</li><li>Presented findings to clinicians, operators, and executives.</li></ul></div>',
+    '{{SECTION_PROJECTS}}': 'Projects',
+    '{{PROJECTS}}': '<div class="project"><div class="project-title">FraudShield</div><div class="project-desc">Open-source framework for real-time fraud detection.</div></div>',
+    '{{SECTION_EDUCATION}}': 'Education',
+    '{{EDUCATION}}': '<div class="edu-item"><div class="edu-header"><div class="edu-title">MS Computer Science <span class="edu-org">UT Austin</span></div><div class="edu-year">2018</div></div></div>',
+    '{{SECTION_CERTIFICATIONS}}': 'Certifications',
+    '{{CERTIFICATIONS}}': '<div class="cert-item"><div class="cert-title">AWS Certified Machine Learning</div><div class="cert-year">2023</div></div>',
+    '{{SECTION_SKILLS}}': 'Skills',
+    '{{SKILLS}}': '<div class="skills-grid"><div class="skill-item"><span class="skill-category">Languages:</span> Python, Go, TypeScript</div></div>',
+  };
+
+  let html = template;
+  for (const [key, value] of Object.entries(replacements)) {
+    html = html.replaceAll(key, value);
+  }
+  return html;
+}
+
+function cleanupFile(path) {
+  if (existsSync(path)) unlinkSync(path);
 }
 
 console.log('\ncareer-ops test suite\n');
@@ -76,13 +150,20 @@ console.log('\ncareer-ops test suite\n');
 console.log('1. Syntax checks');
 
 const mjsFiles = readdirSync(ROOT)
-  .filter(file => file.endsWith('.mjs'))
+  .filter((file) => file.endsWith('.mjs'))
   .sort();
 
 for (const file of mjsFiles) {
   const result = runNode(['--check', file]);
   if (result.blocked) {
-    warn(`Subprocess syntax check skipped for ${file} (restricted environment)`);
+    const fallback = checkSyntaxInProcess(file);
+    if (!fallback.supported) {
+      warn(`Syntax check skipped for ${file} (restricted environment and no in-process fallback available)`);
+    } else if (fallback.ok) {
+      pass(`${file} syntax OK (in-process fallback)`);
+    } else {
+      fail(`${file} has syntax errors`);
+    }
   } else if (result.status === 0) {
     pass(`${file} syntax OK`);
   } else {
@@ -93,7 +174,7 @@ for (const file of mjsFiles) {
 console.log('\n2. Script execution (graceful on empty data)');
 
 const scripts = [
-  { args: ['cv-sync-check.mjs'], expectExit: 1, allowFail: true },
+  { args: ['cv-sync-check.mjs'], acceptableExits: [0, 1], allowFail: true },
   { args: ['verify-pipeline.mjs'], expectExit: 0 },
   { args: ['normalize-statuses.mjs', '--dry-run'], expectExit: 0 },
   { args: ['dedup-tracker.mjs', '--dry-run'], expectExit: 0 },
@@ -101,12 +182,13 @@ const scripts = [
   { args: ['update-system.mjs', 'check'], expectExit: 0 },
 ];
 
-for (const { args, expectExit, allowFail } of scripts) {
+for (const { args, expectExit, acceptableExits, allowFail } of scripts) {
   const result = runNode(args);
   const name = args.join(' ');
+  const allowedStatuses = acceptableExits || [expectExit];
   if (result.blocked) {
     warn(`${name} subprocess check skipped (restricted environment)`);
-  } else if (result.status === expectExit) {
+  } else if (allowedStatuses.includes(result.status)) {
     pass(`${name} runs OK`);
   } else if (allowFail && result.status !== 0) {
     warn(`${name} exited with error (expected without user data)`);
@@ -127,7 +209,7 @@ if (!QUICK) {
     warn('Dashboard build skipped (restricted environment)');
   } else if (goBuild.status === 0) {
     pass('Dashboard compiles');
-    if (existsSync(outputPath)) unlinkSync(outputPath);
+    cleanupFile(outputPath);
   } else {
     fail('Dashboard build failed');
   }
@@ -135,14 +217,54 @@ if (!QUICK) {
   console.log('\n3. Dashboard build (skipped --quick)');
 }
 
-console.log('\n4. Data contract validation');
+console.log('\n4. PDF smoke test');
+
+const smokeHtmlPath = join(ROOT, 'output', '.pdf-smoke-test.html');
+const smokePdfPath = join(ROOT, 'output', '.pdf-smoke-test.pdf');
+
+try {
+  mkdirSync(join(ROOT, 'output'), { recursive: true });
+  writeFileSync(smokeHtmlPath, buildPdfSmokeFixture(), 'utf-8');
+
+  const { generatePDF } = await import('./generate-pdf.mjs');
+  const result = await generatePDF({
+    inputPath: smokeHtmlPath,
+    outputPath: smokePdfPath,
+    format: 'letter',
+    silent: true,
+  });
+
+  if (existsSync(smokePdfPath) && statSync(smokePdfPath).size > 1024 && result.pageCount >= 1) {
+    pass('PDF smoke test generated a valid PDF');
+  } else {
+    fail('PDF smoke test did not produce a usable PDF');
+  }
+} catch (error) {
+  const message = String(error?.message || error);
+  if (/EPERM|browserType\.launch|spawn/i.test(message)) {
+    warn('PDF smoke test skipped (Chromium blocked in current environment)');
+  } else {
+    fail(`PDF smoke test failed: ${message}`);
+  }
+} finally {
+  cleanupFile(smokeHtmlPath);
+  cleanupFile(smokePdfPath);
+}
+
+console.log('\n5. Data contract validation');
 
 const systemFiles = [
   'AGENTS.md',
   'CLAUDE.md',
   'VERSION',
   'DATA_CONTRACT.md',
+  'SECURITY.md',
   'analyze-patterns.mjs',
+  'probe-apply-flow.mjs',
+  'probe-workday-auth.mjs',
+  'probe-workday-myinfo.mjs',
+  'probe-workday-signin.mjs',
+  'probe-workday-verify.mjs',
   'tracker-contract.mjs',
   'modes/_shared.md',
   'modes/_profile.template.md',
@@ -154,6 +276,7 @@ const systemFiles = [
   'modes/scan.md',
   'templates/states.yml',
   'templates/cv-template.html',
+  'docs/VALIDATION_ROADMAP.md',
   '.claude/skills/career-ops/SKILL.md',
   '.agents/skills/career-ops/SKILL.md',
 ];
@@ -167,6 +290,8 @@ for (const file of systemFiles) {
 }
 
 const userFiles = [
+  'cv.md',
+  'article-digest.md',
   'config/profile.yml',
   'modes/_profile.md',
   'portals.yml',
@@ -181,7 +306,7 @@ for (const file of userFiles) {
   }
 }
 
-console.log('\n5. Personal data leak check');
+console.log('\n6. Personal data leak check');
 
 const leakPatterns = [
   'Santiago',
@@ -225,7 +350,7 @@ if (!leakFound) {
   pass('No personal data leaks outside allowed files');
 }
 
-console.log('\n6. Absolute path check');
+console.log('\n7. Absolute path check');
 
 const absPathExtensions = new Set(['.mjs', '.sh', '.md', '.go', '.yml']);
 const allowedPathRefs = [
@@ -234,6 +359,11 @@ const allowedPathRefs = [
   'CLAUDE.md',
   'AGENTS.md',
   'test-all.mjs',
+  'config/profile.yml',
+  'cv.md',
+  'article-digest.md',
+  'modes/_profile.md',
+  'portals.yml',
 ];
 
 let absPathFound = false;
@@ -250,7 +380,7 @@ if (!absPathFound) {
   pass('No absolute paths in code files');
 }
 
-console.log('\n7. Mode file integrity');
+console.log('\n8. Mode file integrity');
 
 const expectedModes = [
   '_shared.md',
@@ -290,7 +420,7 @@ if (shared.includes('_profile.md')) {
   fail('_shared.md does NOT reference _profile.md');
 }
 
-console.log('\n8. CLAUDE.md integrity');
+console.log('\n9. CLAUDE.md integrity');
 
 const claude = readFile('CLAUDE.md');
 const requiredSections = [
@@ -312,7 +442,7 @@ for (const section of requiredSections) {
   }
 }
 
-console.log('\n9. Version file');
+console.log('\n10. Version file');
 
 if (fileExists('VERSION')) {
   const version = readFile('VERSION').trim();
@@ -323,6 +453,140 @@ if (fileExists('VERSION')) {
   }
 } else {
   fail('VERSION file missing');
+}
+
+console.log('\n11. Package metadata');
+
+if (fileExists('package.json') && fileExists('VERSION')) {
+  const pkg = JSON.parse(readFile('package.json'));
+  const version = readFile('VERSION').trim();
+  if (pkg.version === version) {
+    pass(`package.json version matches VERSION (${version})`);
+  } else {
+    fail(`package.json version ${pkg.version} does not match VERSION ${version}`);
+  }
+} else {
+  fail('package.json or VERSION missing');
+}
+
+console.log('\n12. Profile example completeness');
+
+if (fileExists('config/profile.example.yml')) {
+  const profileExample = readFile('config/profile.example.yml');
+  const expectedProfileKeys = [
+    'application_defaults:',
+    'application_files:',
+    'how_did_you_hear:',
+    'workday_overrides:',
+    'address_line_1:',
+    'phone_device_type:',
+    'authorized_to_work_us:',
+    'confidentiality_obligation:',
+    'self_id_defaults:',
+    'consent_to_terms:',
+    'resume_upload_path:',
+  ];
+
+  let missingProfileKey = false;
+  for (const key of expectedProfileKeys) {
+    if (profileExample.includes(key)) {
+      pass(`profile.example includes ${key}`);
+    } else {
+      fail(`profile.example missing ${key}`);
+      missingProfileKey = true;
+    }
+  }
+
+  if (!missingProfileKey) {
+    pass('profile.example covers portal-ready apply fields');
+  }
+} else {
+  fail('config/profile.example.yml missing');
+}
+
+console.log('\n13. Security hygiene');
+
+if (fileExists('.gitignore')) {
+  const gitignore = readFile('.gitignore');
+  const expectedIgnoreRules = [
+    'config/profile.yml',
+    'cv.md',
+    'portals.yml',
+    'output/*',
+    'reports/*.md',
+    '.env',
+    '.env.*',
+    'playwright/.auth/',
+    'storage-state*.json',
+    '*.har',
+  ];
+
+  let missingIgnoreRule = false;
+  for (const rule of expectedIgnoreRules) {
+    if (gitignore.includes(rule)) {
+      pass(`.gitignore includes ${rule}`);
+    } else {
+      fail(`.gitignore missing ${rule}`);
+      missingIgnoreRule = true;
+    }
+  }
+
+  if (!missingIgnoreRule) {
+    pass('.gitignore covers local-only privacy and session artifacts');
+  }
+} else {
+  fail('.gitignore missing');
+}
+
+if (fileExists('generate-pdf.mjs')) {
+  const pdfGenerator = readFile('generate-pdf.mjs');
+  if (pdfGenerator.includes('page.route(') && pdfGenerator.includes('isSafeRenderUrl')) {
+    pass('generate-pdf blocks remote render requests');
+  } else {
+    fail('generate-pdf does not clearly block remote render requests');
+  }
+} else {
+  fail('generate-pdf.mjs missing');
+}
+
+if (fileExists('templates/cv-template.html')) {
+  const template = readFile('templates/cv-template.html');
+  if (!/<script\b/i.test(template) && !/https?:\/\//i.test(template)) {
+    pass('cv-template has no remote scripts or remote asset URLs');
+  } else {
+    fail('cv-template includes remote script or asset references');
+  }
+} else {
+  fail('templates/cv-template.html missing');
+}
+
+const trackedFilesResult = runProcess('git', ['ls-files']);
+const trackedFiles = trackedFilesResult.status === 0
+  ? trackedFilesResult.stdout.split(/\r?\n/).filter(Boolean)
+  : walkFiles(ROOT).map(({ relPath }) => relPath);
+const secretScanExtensions = new Set(['.md', '.yml', '.mjs', '.json', '.sh', '.go', '.html', '.cff']);
+const secretPatterns = [
+  { name: 'private-key', regex: /-----BEGIN [A-Z ]*PRIVATE KEY-----/ },
+  { name: 'aws-access-key', regex: /\bAKIA[0-9A-Z]{16}\b/ },
+  { name: 'github-token', regex: /\bgh[pousr]_[A-Za-z0-9]{20,}\b/ },
+  { name: 'slack-token', regex: /\bxox[baprs]-[A-Za-z0-9-]{10,}\b/ },
+  { name: 'sensitive-secret-assignment', regex: /\b(?:workday_test_password|api[_-]?key|client[_-]?secret|access[_-]?token|refresh[_-]?token|private[_-]?key)\b\s*[:=]\s*["'][^"'$\s][^"']{7,}["']/i },
+  { name: 'hardcoded-password-assignment', regex: /\bpassword\b\s*[:=]\s*["'](?!demo|example|placeholder|changeme|replace|sample)[^"'$\s][^"']{7,}["']/i },
+];
+
+let secretFound = false;
+for (const relPath of trackedFiles) {
+  if (!secretScanExtensions.has(extname(relPath))) continue;
+  const content = readFile(relPath);
+  for (const { name, regex } of secretPatterns) {
+    if (regex.test(content)) {
+      fail(`Possible ${name} found in tracked file: ${relPath}`);
+      secretFound = true;
+    }
+  }
+}
+if (!secretFound) {
+  pass('No obvious secrets detected in tracked files');
 }
 
 console.log('\n' + '='.repeat(50));

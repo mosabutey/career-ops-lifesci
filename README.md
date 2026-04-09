@@ -11,13 +11,13 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Claude_Code-000?style=flat&logo=anthropic&logoColor=white" alt="Claude Code">
-  <img src="https://img.shields.io/badge/OpenCode-111827?style=flat&logo=terminal&logoColor=white" alt="OpenCode">
-  <img src="https://img.shields.io/badge/Codex-6B7280?style=flat&logo=openai&logoColor=white" alt="Codex">
-  <img src="https://img.shields.io/badge/Node.js-339933?style=flat&logo=node.js&logoColor=white" alt="Node.js">
-  <img src="https://img.shields.io/badge/Go-00ADD8?style=flat&logo=go&logoColor=white" alt="Go">
-  <img src="https://img.shields.io/badge/Playwright-2EAD33?style=flat&logo=playwright&logoColor=white" alt="Playwright">
-  <img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="MIT">
+  <code>Claude Code</code>
+  <code>Codex</code>
+  <code>OpenCode</code>
+  <code>Node.js</code>
+  <code>Go</code>
+  <code>Playwright</code>
+  <code>MIT</code>
 </p>
 
 ---
@@ -29,6 +29,15 @@
 ## What This Is
 
 Career-Ops LifeSci is an open-source career operating system for people navigating complex professional paths across science, medicine, consulting, health-tech, technical strategy, and adjacent industries.
+
+### At a glance
+
+| Dimension | What it means here |
+|-----------|--------------------|
+| **Local-first** | Your CV, profile, reports, outputs, and browser-assisted apply artifacts stay on your machine by default |
+| **Role-aware** | Supports `role_pack x career_stage` instead of forcing a single generic job-search path |
+| **English-first** | Shared system layer is optimized for English-language use while still supporting additional language mode packs |
+| **Product-minded** | Real ATS validation, stronger docs, and explicit human-review boundaries matter more than speculative automation |
 
 It is designed for:
 - MDs, PhDs, MD-PhDs, postdocs, residents, fellows, and clinicians
@@ -128,6 +137,13 @@ claude
 
 See [docs/SETUP.md](docs/SETUP.md) for the full setup guide.
 
+For `/career-ops apply`, do not stop at a minimal profile. Fill the local-only `application_defaults` section in `config/profile.yml` with the truthful identity, address, phone, repeated portal answers, mobility preferences, and voluntary disclosure defaults you want available during live browser-assisted applications. Also fill `application_files` with the approved local resume path you want agents to upload, plus any optional cover letter or transcript paths. If a Workday employer uses unusual source-picker wording, store that in `application_defaults.workday_overrides` so agents do not stall on `How Did You Hear About Us?`.
+
+Privacy note:
+- `cv.md`, `config/profile.yml`, `modes/_profile.md`, `article-digest.md`, and interview-prep notes are intended to stay local on your machine and should not be committed to the open-source repo.
+- The repo is designed so agents can use those files locally while keeping the public system layer generic.
+- See [SECURITY.md](SECURITY.md) for the privacy and security model, including ignored secret/session artifacts and local-only browser-validation outputs.
+
 ## Typical Workflows
 
 ### Command Center
@@ -191,10 +207,23 @@ When browser automation is available, the system can:
 - upload the correct resume or cover letter when the file path is known
 - fill sections of the form for human review
 
+To keep that flow smooth, users should front-load their local-only application profile:
+- legal/contact details used in job portals
+- address and phone metadata
+- work authorization and sponsorship answers
+- repeated portal answers such as travel, relocation, age-of-majority, confidentiality/non-compete, and prior-employment disclosures
+- voluntary disclosure defaults they are comfortable storing locally
+- employer-specific source-picker overrides when a platform accepts a truthful answer but only under tenant-specific wording
+- approved upload paths for resume, cover letter, transcript, or similar documents that a portal may request
+
 The human boundary stays in place:
 - the candidate reviews the materials
 - the candidate owns the final decision
 - the system should stop before final submission unless the user explicitly asks for a final handoff and still reviews first
+
+Repeat-company note:
+- some Workday employers remember prior applicant state, may skip parts of account setup on later applications, and may offer accelerators such as `Use My Last Application` or resume-driven autofill
+- treat those as speed features, not proof that the imported information is correct; agents should still verify every carried-forward field before the final review
 
 ## What Agents Can Do Locally On Your PC
 
@@ -272,6 +301,7 @@ career-ops-lifesci/
 - [docs/LOCAL_AGENT_GUIDE.md](docs/LOCAL_AGENT_GUIDE.md)
 - [docs/ATS_APPLY_PLAYBOOK.md](docs/ATS_APPLY_PLAYBOOK.md)
 - [docs/BROWSER_APPLY_CHECKLIST.md](docs/BROWSER_APPLY_CHECKLIST.md)
+- [docs/VALIDATION_ROADMAP.md](docs/VALIDATION_ROADMAP.md)
 - [CONTRIBUTING.md](CONTRIBUTING.md)
 - [LEGAL_DISCLAIMER.md](LEGAL_DISCLAIMER.md)
 

@@ -43,6 +43,65 @@ authorization:
     future_sponsorship: "I do not require immediate sponsorship, but I will require employer sponsorship in the future to continue long-term U.S. employment."
     additional_context: "There is no employer cost or action required for my current authorization period."
 
+# Local-only portal/application profile.
+# Fill this section if you want browser-assisted apply flows to run with minimal mid-form interruptions.
+# Keep it truthful and keep it local in config/profile.yml.
+application_defaults:
+  # Keep this truthful. Prefer the real acquisition path such as company careers page,
+  # LinkedIn, employee referral, recruiter outreach, or another site where the job was actually found.
+  how_did_you_hear: "Company careers page"
+  prefix: "Dr."
+  first_name: "Avery"
+  preferred_name: ""
+  middle_name: ""
+  last_name: "Chen"
+  suffix: ""
+  address_line_1: "123 Main Street"
+  address_line_2: "Unit 5"
+  city: "Boston"
+  county: "Suffolk County"
+  state: "Massachusetts"
+  postal_code: "02115"
+  country: "United States"
+  phone_device_type: "Mobile"
+  is_over_18: true
+  authorized_to_work_us: true
+  confidentiality_obligation: false
+  willing_to_travel: true
+  open_to_field_travel: true
+  open_to_relocation: false
+  prior_medtronic_employment: false
+  prior_covidien_employment: false
+  consent_to_terms: false  # set true only if you want agents to pre-check required consent/attestation boxes before your review
+  self_id_defaults:
+    veteran_status: "Prefer not to disclose"
+    disability_status: "Prefer not to disclose"
+    gender_identity: "Prefer not to disclose"
+    race_ethnicity: "Prefer not to disclose"
+    hispanic_latino: "Prefer not to disclose"
+  company_specific_defaults:
+    current_or_former_employee: false
+    current_or_former_contractor: false
+    employee_referral_name: ""
+    notice_period: ""
+  # Optional Workday-specific overrides for employers whose source picker wording differs.
+  # Keep these local-only in config/profile.yml.
+  workday_overrides:
+    default_source_query: "career"
+    example_employer:
+      how_did_you_hear: "Employee referral"
+      source_query: "referral"
+      source_option: "Employee Referral"
+
+# Local-only upload artifacts for browser-assisted apply flows.
+# Point these to truthful, approved files on your device so agents do not have to stop mid-portal.
+application_files:
+  resume_upload_path: ""
+  cover_letter_upload_path: ""
+  transcript_upload_path: ""
+  # Workday tenants sometimes offer resume-driven autofill or "Use My Last Application".
+  # Even when those appear, agents should still re-check every imported field before submission.
+
 career_strategy:
   north_star: "Build a durable, opportunity-rich career across scientific, clinical, and technical industries."
   stage_path: "advanced_training"

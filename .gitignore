@@ -16,11 +16,20 @@ jds/*
 !jds/.gitkeep
 
 # User config and customization (never auto-updated)
+cv.md
+article-digest.md
 config/profile.yml
 portals.yml
 modes/_profile.md
+interview-prep/*.md
+!interview-prep/.gitkeep
 .update-dismissed
 .update-lock
+.env
+.env.*
+playwright/.auth/
+storage-state*.json
+*.har
 
 # Generated
 .resolved-prompt-*

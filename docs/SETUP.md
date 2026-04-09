@@ -32,6 +32,21 @@ Edit `config/profile.yml` with:
 - your primary role packs
 - your narrative and proof themes
 - your markets and constraints
+- your portal/application defaults in `application_defaults`
+
+For browser-assisted apply work, do not stop at a minimal profile. Fill the local-only `application_defaults` section before you start sending agents into live portals.
+
+That section should cover, truthfully:
+- legal/contact details used in applications: prefix, legal first/middle/last name, preferred name, suffix, phone, address, county, postal code, country
+- portal-level defaults: how you heard about the role, phone device type, age-of-majority answers, travel/field-travel/relocation preferences
+- work authorization and disclosure answers that repeat in portals
+- employer-history questions that may recur, such as prior employment or contractor status
+- employer-specific Workday source-picker wording when a tenant expects a truthful answer under labels like `Career Page`, `Career Site`, or `Employee Referral`
+- voluntary disclosure defaults you want available locally, such as veteran status, disability status, gender, race/ethnicity, and Hispanic/Latino responses
+- whether the agent may pre-check required consent/attestation boxes before your review
+- approved upload-file paths in `application_files`, especially your default resume path and any optional cover letter or transcript path
+
+These values stay local in `config/profile.yml`; they are not meant for the public repo.
 
 ### 3. Add your source materials
 
@@ -40,6 +55,13 @@ Create `cv.md` in the project root.
 Optional but strongly recommended:
 - `article-digest.md` for proof points, publications, projects, awards, or case studies
 - `modes/_profile.md` for your translation library and track-specific positioning
+
+If you plan to use `/career-ops apply`, strongly recommended becomes practically required:
+- complete `config/profile.yml` including `application_defaults`
+- keep `cv.md` current and truthful
+- decide your local-only defaults for voluntary disclosures and repeated portal questions before the first live application session
+- store any known employer-specific Workday source overrides once in `config/profile.yml` so agents do not have to stop on later applications
+- expect resume autofill and `Use My Last Application` to need review and correction even when a returning-employer flow looks faster
 
 ### 4. Open your AI tool
 

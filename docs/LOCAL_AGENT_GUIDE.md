@@ -21,6 +21,25 @@ With the repo open locally, the agent can:
 - fill visible application fields for the user to review
 - maintain tracker and report files without breaking the data contract
 
+For repeatable browser-assisted apply work, prefer keeping those upload paths in the local-only `application_files` section of `config/profile.yml` instead of pasting them ad hoc during a live portal session.
+
+## Portal-ready local profile
+
+If you want `/career-ops apply` to run with minimal interruptions, your local-only `config/profile.yml` should include more than high-level career strategy.
+
+Before live apply sessions, keep these truthfully filled in:
+- legal/contact identity used in applications
+- mailing address and phone metadata
+- work authorization and sponsorship answers
+- repeated portal defaults such as travel, relocation, age-of-majority, and confidentiality/non-compete answers
+- voluntary disclosure defaults you are comfortable storing locally for agent-assisted filling
+- employer-specific recurring answers you already know, such as prior employment history
+- employer-specific Workday source-picker overrides when the truthful answer is accepted only under tenant-specific wording
+- approved local upload paths for your resume and any optional cover letter or transcript
+- whether the agent may pre-check required consent/attestation boxes before your review
+
+This information belongs in the local user layer only. It should stay in `config/profile.yml`, not in public repo docs or shared system files.
+
 ## What the local agent should not do
 
 The agent should not:
@@ -52,6 +71,10 @@ When browser automation is available, a well-configured local agent may:
 - choose the best-fit document variant
 - upload that document
 - fill visible fields from approved source material
+
+The more complete the local profile is, the less often the agent has to stop mid-portal to ask for missing data.
+
+On repeat applications to the same employer, some Workday tenants may reuse prior applicant state, skip parts of account setup, or offer features such as `Use My Last Application` or resume-driven autofill. Those are accelerators, not trust signals; the agent should still verify carried-forward fields before the user reviews the application.
 
 The agent should then stop and present the application for review before final submission.
 
