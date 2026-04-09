@@ -50,6 +50,7 @@ If the candidate asks for it and browser control is available, the agent may:
 4. If Section H exists -> use the previous draft answers as a starting point
 5. If there is no match -> say so and offer a quick auto-pipeline evaluation
 6. Read `config/profile.yml` for `authorization` details before answering work authorization or sponsorship questions
+7. If `authorization.candidate_profile_type` exists, use it to map the candidate to the right sponsorship-answer pattern before filling any ATS yes/no field
 
 ## Step 3 -- Detect role changes
 
@@ -123,6 +124,13 @@ For work authorization and sponsorship questions:
 - if the form text conflicts with the candidate's actual situation, tell the candidate before suggesting a response
 - never tell the candidate to answer `no` to future sponsorship if the profile says future sponsorship will be required
 - if the company explicitly states no sponsorship and the candidate does require it, flag the mismatch clearly before continuing
+- if `authorization.candidate_profile_type` is `f1_cpt_internship`, answer internship-specific authorization questions narrowly and do not reuse that answer for long-term employment questions
+- if `authorization.candidate_profile_type` is `f1_opt_non_stem` or `f1_opt_stem`, answer `authorized now` based on active OPT and answer `future sponsorship` based on long-term truth
+- if `authorization.candidate_profile_type` is `work_authorization_expiring_soon`, include the real expiration month and year when a short explanation is possible
+- if `authorization.candidate_profile_type` is `tn_eligible`, only use a no-sponsorship path if the profile explicitly supports it and the role plausibly fits TN treatment
+- if `authorization.candidate_profile_type` is `immediate_employer_sponsorship_required`, do not soften that into a future-only sponsorship answer
+- prefer `authorization.answer_templates` for free-text explanations when present
+- if `authorization.ats_form_defaults` exists, prefer those values over generic defaults when the ATS asks the standard questions directly
 
 For uploads and form-filling:
 - choose the document variant that best matches the evaluated role

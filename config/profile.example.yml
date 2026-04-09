@@ -23,12 +23,22 @@ candidate:
 authorization:
   country: "United States"
   current_status: "F-1"
+  candidate_profile_type: "f1_opt_stem"   # f1_cpt_internship | f1_opt_non_stem | f1_opt_stem | work_authorization_expiring_soon | tn_eligible | immediate_employer_sponsorship_required | other
   can_work_now: true
   requires_immediate_sponsorship: false
   future_sponsorship_required: true
   authorization_basis: "STEM OPT"
   authorization_end_date: "2028-07"
   target_intent: "I want to remain in the U.S. long term."
+  # Use these as the truthful ATS defaults that the agent can reuse.
+  ats_form_defaults:
+    authorized_to_work_us: true
+    require_immediate_sponsorship: false
+    require_future_sponsorship: true
+  # Optional nuance notes for the agent. These are especially helpful for international candidates.
+  profile_type_notes:
+    - "If asked whether I will now or in the future require sponsorship, answer truthfully based on my long-term U.S. plans."
+    - "Do not collapse temporary work authorization into a permanent no-sponsorship answer."
   sponsorship_policy:
     default_when_unstated: "apply"
     explicit_no_sponsorship: "treat as strong negative signal"
@@ -42,6 +52,10 @@ authorization:
     work_authorized_now: "I am currently authorized to work in the United States under STEM OPT."
     future_sponsorship: "I do not require immediate sponsorship, but I will require employer sponsorship in the future to continue long-term U.S. employment."
     additional_context: "There is no employer cost or action required for my current authorization period."
+    internship_cpt_variant: "I am authorized to work for this internship through CPT. If I continue in the U.S. long term after graduation, I will require sponsorship in the future."
+    expiring_soon_variant: "I am currently authorized to work in the U.S. through [month year]. If I continue beyond that point, I will require employer sponsorship."
+    immediate_sponsorship_variant: "Yes. I will require employer sponsorship to work in the United States."
+    tn_variant: "I am eligible for TN-authorized work in qualifying roles and do not expect standard employment visa sponsorship for that path."
 
 # Local-only portal/application profile.
 # Fill this section if you want browser-assisted apply flows to run with minimal mid-form interruptions.
@@ -66,6 +80,8 @@ application_defaults:
   phone_device_type: "Mobile"
   is_over_18: true
   authorized_to_work_us: true
+  require_immediate_sponsorship: false
+  require_future_sponsorship: true
   confidentiality_obligation: false
   willing_to_travel: true
   open_to_field_travel: true

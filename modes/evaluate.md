@@ -82,6 +82,12 @@ Rules:
 - If the JD explicitly requires citizenship, permanent residency, security clearance, or export-control eligibility the candidate does not have, treat that as `restricted`.
 - If the JD is silent, treat it as `unknown`, not an automatic negative.
 - If the role is strong and the signal is `unknown`, default to applying unless other factors make the role low value.
+- If `authorization.candidate_profile_type` is present, use it to explain the practical difference between `can work now`, `needs immediate sponsorship`, and `will need future sponsorship`.
+- For `f1_cpt_internship`, make it explicit that internship authorization does not automatically mean long-term sponsorship-free work.
+- For `f1_opt_non_stem` and `f1_opt_stem`, treat active OPT as current work authorization, not proof that future sponsorship is unnecessary.
+- For `work_authorization_expiring_soon`, mention the real month and year and treat near-term expiration as a practical recruiting risk.
+- For `tn_eligible`, do not assume a no-sponsorship answer unless the profile explicitly says the candidate wants TN-based handling and the role plausibly fits.
+- For `immediate_employer_sponsorship_required`, treat employer silence as a risk that should usually move the recommendation toward `network first` or `apply and clarify later`, depending on fit.
 - Never give legal advice. Summarize practical fit only and tell the candidate to confirm legal specifics with their school official, program sponsor, attorney, or employer when necessary.
 
 ## Block E -- Compensation and Market Context

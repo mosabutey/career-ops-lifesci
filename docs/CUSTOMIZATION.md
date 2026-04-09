@@ -34,6 +34,17 @@ For international candidates, use `authorization` to record:
 - your current basis for work authorization
 - your authorization end date
 - your preferred default when postings are silent
+- your `candidate_profile_type` so the repo can answer ATS questions consistently
+
+Recommended supporting fields for international candidates:
+- `authorization.candidate_profile_type`
+- `authorization.ats_form_defaults`
+- `authorization.answer_templates`
+- `application_defaults.authorized_to_work_us`
+- `application_defaults.require_immediate_sponsorship`
+- `application_defaults.require_future_sponsorship`
+
+Use [docs/INTERNATIONAL_SPONSORSHIP_ANSWERING.md](INTERNATIONAL_SPONSORSHIP_ANSWERING.md) as the shared playbook for truthful answer templates and profile-specific nuance.
 
 ## 2. Translation library (`modes/_profile.md`)
 

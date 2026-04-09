@@ -7,11 +7,20 @@ candidate:
 authorization:
   country: "United States"
   current_status: "F-1"
+  candidate_profile_type: "f1_cpt_internship"
   can_work_now: true
   requires_immediate_sponsorship: false
   future_sponsorship_required: true
   authorization_basis: "CPT for internships, then OPT after graduation"
   authorization_end_date: "2028-05"
+  ats_form_defaults:
+    authorized_to_work_us: true
+    require_immediate_sponsorship: false
+    require_future_sponsorship: true
+  answer_templates:
+    work_authorized_now: "I am currently authorized to work in the United States for qualifying internships through CPT."
+    future_sponsorship: "I do not require immediate sponsorship for a CPT-eligible internship, but I will require employer sponsorship in the future for long-term U.S. employment."
+    additional_context: "If I continue in the U.S. after graduation, I expect to use OPT first and then require sponsorship later."
   sponsorship_policy:
     default_when_unstated: "apply"
 

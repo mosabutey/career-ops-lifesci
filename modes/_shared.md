@@ -79,6 +79,7 @@ When sponsorship or work authorization is relevant:
 - explicit employer restrictions matter
 - silence does not automatically mean rejection
 - candidate answers must distinguish between work authorization now and sponsorship later
+- if `authorization.candidate_profile_type` exists, use it to interpret the candidate's truthful answer pattern rather than improvising from scratch
 
 ### Stage overlay
 
