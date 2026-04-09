@@ -9,6 +9,7 @@ This mode can be used for browser-assisted application work on the candidate's l
 - **Best with visible Playwright**: in visible mode, the candidate can see the browser and the agent can interact with the page.
 - **Without Playwright**: the candidate shares a screenshot or pastes the questions manually.
 - **File uploads**: if the candidate wants the agent to upload a resume or cover letter, the file path must be known and the intended document should be confirmed first.
+- **Custom ATS widgets**: many live forms use custom comboboxes, listboxes, step flows, and gated account-creation screens instead of plain HTML inputs. Treat those as first-class application controls.
 
 ## Workflow
 
@@ -31,6 +32,7 @@ If the candidate asks for it and browser control is available, the agent may:
 - navigate to the company job page
 - open the application flow
 - inspect visible fields and upload controls
+- inspect the control model for custom widgets such as comboboxes, listboxes, radios, checkboxes, and multi-step flows
 - prepare the browser state for the candidate's review
 
 **Without Playwright:** ask the candidate to:
@@ -55,15 +57,29 @@ If the role on screen differs from the evaluated role:
 - **If re-evaluating**: run a full A-G evaluation, update the report, and regenerate Section H
 - **Update the tracker**: change the role title in `applications.md` if needed
 
+If the application URL itself is stale, redirected, or broken:
+- tell the candidate before filling anything
+- do not proceed as if the form is valid
+- offer to locate the current live posting or re-run evaluation on the active URL
+
+If the platform reaches an account-creation or sign-in gate before the actual application:
+- identify the platform and step number if visible
+- tell the candidate whether the next step would create an account or authenticate
+- stop before creating an account unless the candidate explicitly wants help proceeding
+
 ## Step 4 -- Analyze form questions
 
 Identify ALL visible questions:
 - Free-text fields (cover letter, why this role, etc.)
 - Dropdowns (how did you hear about us, work authorization, etc.)
 - Yes/No questions (relocation, visa, etc.)
+- Custom comboboxes and listboxes that behave like dropdowns but are not native `select` elements
+- Checkboxes and acknowledgment controls
+- Radio groups, pill selectors, and other click-to-mark controls
 - Salary fields (range, expectation)
 - Upload fields (resume, cover letter PDF)
 - Attachments and document selectors (resume variant, transcript, writing sample, supporting files)
+- Step indicators, gated screens, and platform-specific progress states
 
 Classify each question:
 - **Already answered in Section H** -> adapt the existing answer
@@ -93,6 +109,12 @@ For uploads and form-filling:
 - confirm the intended file before upload when multiple variants exist
 - upload only files the candidate has approved or that were generated for this role
 - fill visible fields carefully and re-check values
+- prefer exact field selectors when labels are similar, such as `First Name` vs `Preferred First Name`
+- do not assume every dropdown is a native `select`; many ATS flows use combobox + listbox patterns
+- do not assume repeated labels such as `Yes` or `No` are unique; scope them to the surrounding question block before clicking
+- prefer this fallback order for custom controls: exact label/ID -> role-based control (`combobox`, `option`, `checkbox`, `radio`) -> keyboard navigation (`ArrowDown`, `Enter`) -> pause and ask the candidate to review the visible options
+- after choosing any dropdown, checkbox, radio, or acknowledgment control, verify that the value or checked state persisted on screen
+- if a platform requires account creation or sign-in before the real form, stop at that boundary unless the candidate explicitly wants help continuing
 - do not invent required information the candidate has not approved
 - stop before the final submit or send action so the candidate can review everything
 
@@ -133,6 +155,7 @@ If the candidate confirms that the application was submitted:
 - The agent may help open sites, upload files, and fill sections.
 - The candidate must review the application before submission.
 - Do not click the final submit action unless the candidate explicitly asks for a final handoff and still has a chance to review first.
+- Do not create external accounts as part of the application flow unless the candidate explicitly wants that help and understands the platform boundary.
 
 ## Scroll handling
 

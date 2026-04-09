@@ -55,6 +55,8 @@ When browser automation is available, a well-configured local agent may:
 
 The agent should then stop and present the application for review before final submission.
 
+For platform-specific browser guidance, see [docs/ATS_APPLY_PLAYBOOK.md](ATS_APPLY_PLAYBOOK.md).
+
 ## Practical limits
 
 Real-world application sites vary widely. Depending on the site, the agent may encounter:

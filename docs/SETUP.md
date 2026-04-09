@@ -77,6 +77,7 @@ The user remains the final reviewer and submitter of all real applications.
 
 For boundaries and operating expectations, see [docs/LOCAL_AGENT_GUIDE.md](LOCAL_AGENT_GUIDE.md).
 For real-site validation of browser assistance, see [docs/BROWSER_APPLY_CHECKLIST.md](BROWSER_APPLY_CHECKLIST.md).
+For ATS-specific application behavior, see [docs/ATS_APPLY_PLAYBOOK.md](ATS_APPLY_PLAYBOOK.md).
 
 ## Validate setup
 
